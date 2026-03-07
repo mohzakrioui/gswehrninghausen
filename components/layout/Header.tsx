@@ -2,7 +2,12 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { Menu, X, GraduationCap, ChevronDown } from 'lucide-react'
+
+interface HeaderProps {
+  cmsPages?: { title: string; slug: string }[]
+}
 
 const navLinks = [
   { href: '/', label: 'Startseite' },
@@ -17,13 +22,40 @@ const navLinks = [
       { href: '/ogs', label: 'OGS' },
     ],
   },
-  { href: '/eltern', label: 'Eltern' },
   { href: '/kontakt', label: 'Kontakt' },
 ]
 
-export default function Header() {
+export default function Header({ cmsPages = [] }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const pathname = usePathname()
+
+  const isActive = (href: string) => {
+    if (href === '/' && pathname !== '/') return false
+    return pathname === href || pathname?.startsWith(href + '/')
+  }
+
+  const isGroupActive = (children: { href: string }[]) => {
+    return children.some((child) => isActive(child.href))
+  }
+
+  // Final nav list combining hardcoded and CMS pages
+  const finalNavLinks = [...navLinks]
+  
+  if (cmsPages.length > 0) {
+    // Insert "Informationen" before "Kontakt" or at the end
+    const contactIndex = finalNavLinks.findIndex(l => l.label === 'Kontakt')
+    const dynamicGroup = {
+      label: 'Informationen',
+      children: cmsPages.map(p => ({ href: `/${p.slug}`, label: p.title }))
+    }
+    
+    if (contactIndex !== -1) {
+      finalNavLinks.splice(contactIndex, 0, dynamicGroup)
+    } else {
+      finalNavLinks.push(dynamicGroup)
+    }
+  }
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
@@ -41,7 +73,7 @@ export default function Header() {
               style={{ background: 'var(--color-primary)' }}
               aria-hidden
             >
-              <GraduationCap className="h-5 w-5 text-white" />
+              < GraduationCap className="h-5 w-5 text-white" />
             </div>
             <span className="hidden sm:block leading-tight">
               GS Wehringhausen
@@ -50,11 +82,15 @@ export default function Header() {
 
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-0.5" aria-label="Hauptnavigation">
-            {navLinks.map((item) =>
+            {finalNavLinks.map((item) =>
               item.children ? (
                 <div key={item.label} className="relative">
                   <button
-                    className="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors flex items-center gap-1"
+                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-1 ${
+                      isGroupActive(item.children)
+                        ? 'text-[var(--color-primary-dark)] bg-blue-50'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    }`}
                     onClick={() =>
                       setOpenDropdown(openDropdown === item.label ? null : item.label)
                     }
@@ -77,8 +113,11 @@ export default function Header() {
                           <Link
                             key={child.href}
                             href={child.href}
-                            className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
-                            style={{ ['--hover-color' as string]: 'var(--color-primary)' }}
+                            className={`block px-4 py-2.5 text-sm transition-colors ${
+                              isActive(child.href)
+                                ? 'text-[var(--color-primary)] font-semibold bg-blue-50/50'
+                                : 'text-gray-700 hover:bg-gray-50'
+                            }`}
                             onClick={() => setOpenDropdown(null)}
                           >
                             {child.label}
@@ -92,7 +131,11 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href!}
-                  className="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    isActive(item.href!)
+                      ? 'text-[var(--color-primary-dark)] bg-blue-50'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                  }`}
                 >
                   {item.label}
                 </Link>
@@ -102,7 +145,7 @@ export default function Header() {
             {/* CTA button */}
             <Link
               href="/eltern"
-              className="ml-2 px-4 py-2 rounded-lg text-sm font-semibold text-white transition-colors"
+              className="ml-2 px-4 py-2 rounded-lg text-sm font-semibold text-white transition-colors hover:brightness-110"
               style={{ background: 'var(--color-primary)' }}
             >
               Elternbereich
@@ -124,7 +167,7 @@ export default function Header() {
       {mobileOpen && (
         <div className="lg:hidden bg-white border-t border-gray-100 px-4 pb-5">
           <nav aria-label="Mobile Navigation">
-            {navLinks.map((item) =>
+            {finalNavLinks.map((item) =>
               item.children ? (
                 <div key={item.label}>
                   <p className="mt-4 mb-1.5 text-xs font-semibold uppercase tracking-wider text-gray-400 px-2">
@@ -134,7 +177,11 @@ export default function Header() {
                     <Link
                       key={child.href}
                       href={child.href}
-                      className="block px-3 py-2.5 rounded-md text-sm text-gray-700 hover:bg-gray-50"
+                      className={`block px-3 py-2.5 rounded-md text-sm transition-colors ${
+                        isActive(child.href)
+                          ? 'text-[var(--color-primary)] font-semibold bg-blue-50'
+                          : 'text-gray-700 hover:bg-gray-50'
+                      }`}
                       onClick={() => setMobileOpen(false)}
                     >
                       {child.label}
@@ -145,7 +192,11 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href!}
-                  className="block px-3 py-2.5 mt-1 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
+                  className={`block px-3 py-2.5 mt-1 rounded-md text-sm font-medium transition-colors ${
+                    isActive(item.href!)
+                      ? 'text-[var(--color-primary)] font-semibold bg-blue-50'
+                      : 'text-gray-700 hover:bg-gray-50'
+                  }`}
                   onClick={() => setMobileOpen(false)}
                 >
                   {item.label}
