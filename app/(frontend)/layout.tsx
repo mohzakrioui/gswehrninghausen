@@ -7,6 +7,7 @@ import { Nunito } from 'next/font/google'
 import { getPayloadClient } from '../../lib/payload'
 import { unstable_cache } from 'next/cache'
 
+
 const nunito = Nunito({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800'],
