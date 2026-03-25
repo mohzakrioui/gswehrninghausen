@@ -32,19 +32,23 @@ const getPageData = unstable_cache(
 )
 
 export async function generateStaticParams() {
-  const payload = await getPayloadClient()
-  const pages = await payload.find({
-    collection: 'pages',
-    limit: 100,
-    select: {
-      slug: true,
-    },
-  })
+    try {
+    const payload = await getPayloadClient()
+    const pages = await payload.find({
+      collection: 'pages',
+      limit: 100,
+      select: {
+        slug: true,
+      },
+    })
 
-  return pages.docs.map((page: any) => ({
-    slug: page.slug,
-  }))
-}
+    return pages.docs.map((page: any) => ({
+      slug: page.slug,
+    }))
+  } catch (error) {
+    return []
+  }
+  }
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params

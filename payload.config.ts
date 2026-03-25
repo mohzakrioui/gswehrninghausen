@@ -57,7 +57,6 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL,
     },
-    push: true,
   }),
   email: process.env.SMTP_HOST
     ? nodemailerAdapter({
