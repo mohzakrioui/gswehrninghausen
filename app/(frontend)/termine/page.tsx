@@ -9,7 +9,8 @@ export const metadata: Metadata = {
   description: 'Schulferien, Veranstaltungen und Termine der Grundschule Wehringhausen.',
 }
 
-export const revalidate = 3600 // 1 hour
+export const revalidate = 3600
+export const dynamic = 'force-dynamic' // 1 hour
 
 const getEvents = unstable_cache(
   async () => {

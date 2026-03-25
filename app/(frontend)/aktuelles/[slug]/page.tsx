@@ -11,6 +11,7 @@ import RichText from '../../../../components/ui/RichText'
 import { unstable_cache } from 'next/cache'
 
 export const revalidate = 60
+export const dynamic = 'force-dynamic'
 
 interface Props {
   params: Promise<{ slug: string }>

@@ -12,7 +12,8 @@ interface PageProps {
   }>
 }
 
-export const revalidate = 600 // Revalidate every 10 minutes
+export const revalidate = 600
+export const dynamic = 'force-dynamic' // Revalidate every 10 minutes
 
 const getPageData = unstable_cache(
       async (slug: string) => {

@@ -8,6 +8,7 @@ import { getPayloadClient } from '../../../../lib/payload'
 import GalleryLightbox from '../../../../components/sections/GalleryLightbox'
 
 export const revalidate = 3600
+export const dynamic = 'force-dynamic'
 
 interface Props {
   params: Promise<{ slug: string }>

@@ -5,7 +5,8 @@ import UpcomingEvents from '../../components/sections/UpcomingEvents'
 import SchoolStats from '../../components/sections/SchoolStats'
 import { unstable_cache } from 'next/cache'
 
-export const revalidate = 60 // ISR: revalidate every 60 seconds
+export const revalidate = 60
+export const dynamic = 'force-dynamic' // ISR: revalidate every 60 seconds
 
 const getHomeData = unstable_cache(
   async () => {
