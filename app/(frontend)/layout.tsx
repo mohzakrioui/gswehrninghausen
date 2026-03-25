@@ -6,7 +6,7 @@ import '../globals.css'
 import { Nunito } from 'next/font/google'
 import { getPayloadClient } from '../../lib/payload'
 import { unstable_cache } from 'next/cache'
-
+export const dynamic = 'force-dynamic'
 
 const nunito = Nunito({
   subsets: ['latin'],
