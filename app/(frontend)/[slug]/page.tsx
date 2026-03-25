@@ -15,7 +15,8 @@ interface PageProps {
 export const revalidate = 600 // Revalidate every 10 minutes
 
 const getPageData = unstable_cache(
-  async (slug: string) => {
+      async (slug: string) => {
+    try {
     const payload = await getPayloadClient()
     const pages = await payload.find({
       collection: 'pages',
@@ -26,6 +27,9 @@ const getPageData = unstable_cache(
       },
     })
     return pages.docs[0] || null
+  } catch (error) {
+      return null
+  }
   },
   ['pages-slug'],
   { revalidate: 600, tags: ['pages'] }
