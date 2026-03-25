@@ -1,9 +1,10 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { Menu, X, GraduationCap, ChevronDown } from 'lucide-react'
+import { Menu, X, ChevronDown } from 'lucide-react'
 
 interface HeaderProps {
   cmsPages?: { title: string; slug: string }[]
@@ -39,17 +40,13 @@ export default function Header({ cmsPages = [] }: HeaderProps) {
     return children.some((child) => isActive(child.href))
   }
 
-  // Final nav list combining hardcoded and CMS pages
   const finalNavLinks = [...navLinks]
-  
   if (cmsPages.length > 0) {
-    // Insert "Informationen" before "Kontakt" or at the end
     const contactIndex = finalNavLinks.findIndex(l => l.label === 'Kontakt')
     const dynamicGroup = {
       label: 'Informationen',
       children: cmsPages.map(p => ({ href: `/${p.slug}`, label: p.title }))
     }
-    
     if (contactIndex !== -1) {
       finalNavLinks.splice(contactIndex, 0, dynamicGroup)
     } else {
@@ -63,21 +60,15 @@ export default function Header({ cmsPages = [] }: HeaderProps) {
         <div className="flex items-center justify-between h-16">
 
           {/* Logo */}
-          <Link
-            href="/"
-            className="flex items-center gap-2.5 font-bold text-lg"
-            style={{ color: 'var(--color-primary-dark)' }}
-          >
-            <div
-              className="flex items-center justify-center w-9 h-9 rounded-lg"
-              style={{ background: 'var(--color-primary)' }}
-              aria-hidden
-            >
-              < GraduationCap className="h-5 w-5 text-white" />
-            </div>
-            <span className="hidden sm:block leading-tight">
-              GS Wehringhausen
-            </span>
+          <Link href="/" className="flex items-center shrink-0">
+            <Image
+              src="/images/school-logo-horizontal.jpg"
+              alt="Grundschule Wehringhausen"
+              width={220}
+              height={68}
+              className="h-11 w-auto object-contain"
+              priority
+            />
           </Link>
 
           {/* Desktop nav */}
@@ -103,11 +94,7 @@ export default function Header({ cmsPages = [] }: HeaderProps) {
                   </button>
                   {openDropdown === item.label && (
                     <>
-                      {/* Backdrop */}
-                      <div
-                        className="fixed inset-0 z-40"
-                        onClick={() => setOpenDropdown(null)}
-                      />
+                      <div className="fixed inset-0 z-40" onClick={() => setOpenDropdown(null)} />
                       <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50">
                         {item.children.map((child) => (
                           <Link
@@ -141,8 +128,6 @@ export default function Header({ cmsPages = [] }: HeaderProps) {
                 </Link>
               ),
             )}
-
-            {/* CTA button */}
             <Link
               href="/eltern"
               className="ml-2 px-4 py-2 rounded-lg text-sm font-semibold text-white transition-colors hover:brightness-110"
@@ -216,4 +201,4 @@ export default function Header({ cmsPages = [] }: HeaderProps) {
       )}
     </header>
   )
-}
+                         }
