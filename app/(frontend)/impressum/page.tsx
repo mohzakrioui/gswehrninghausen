@@ -1,64 +1,67 @@
 import { Metadata } from 'next'
-import PageHero from '../../../components/ui/PageHero'
 
 export const metadata: Metadata = {
   title: 'Impressum',
-  robots: { index: false },
+  description: 'Impressum der Grundschule Wehringhausen, Hagen.',
 }
 
 export default function ImpressumPage() {
   return (
-    <>
-      <PageHero title="Impressum" />
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12 prose text-gray-700">
-        <h2>Angaben gemäß § 5 TMG</h2>
-        <p>
-          <strong>Grundschule Wehringhausen</strong>
-          <br />
-          Wehringhausener Str. 1<br />
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-8">
+      <h1 className="text-3xl font-bold text-gray-800">Impressum</h1>
+
+      <section className="space-y-2">
+        <h2 className="text-lg font-semibold text-gray-700">Angaben gemaess § 5 TMG</h2>
+        <p className="text-gray-600">
+          Grundschule Wehringhausen<br />
+          Mineralstrasse 37<br />
           58089 Hagen
         </p>
+      </section>
 
-        <h3>Vertreten durch</h3>
-        <p>Schulleitung: [Name der Schulleitung]</p>
-
-        <h3>Schulträger</h3>
-        <p>
-          Stadt Hagen – Der Oberbürgermeister
-          <br />
-          Volme-Galerie 1<br />
-          58095 Hagen
+      <section className="space-y-2">
+        <h2 className="text-lg font-semibold text-gray-700">Vertretungsberechtigte Person</h2>
+        <p className="text-gray-600">
+          Jennifer Rohn (Schulleiterin)
         </p>
+      </section>
 
-        <h3>Kontakt</h3>
-        <p>
-          Telefon: 02331 / XXX XXX
-          <br />
-          E-Mail: info@gswehringhausen.de
+      <section className="space-y-2">
+        <h2 className="text-lg font-semibold text-gray-700">Kontakt</h2>
+        <p className="text-gray-600">
+          Telefon: 02331 / 348190<br />
+          E-Mail: <a href="mailto:100189@schule.nrw.de" className="underline">100189@schule.nrw.de</a>
         </p>
+      </section>
 
-        <h3>Aufsichtsbehörde</h3>
-        <p>
-          Bezirksregierung Arnsberg
-          <br />
-          Seibertzstraße 1<br />
+      <section className="space-y-2">
+        <h2 className="text-lg font-semibold text-gray-700">Aufsichtsbehoerde</h2>
+        <p className="text-gray-600">
+          Bezirksregierung Arnsberg<br />
+          Seibertzstrasse 1<br />
           59821 Arnsberg
         </p>
+      </section>
 
-        <h3>Haftungsausschluss</h3>
-        <p>
-          Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit,
-          Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.
+      <section className="space-y-2">
+        <h2 className="text-lg font-semibold text-gray-700">Haftungsausschluss</h2>
+        <p className="text-gray-600 text-sm leading-relaxed">
+          Die Inhalte unserer Seiten wurden mit groesster Sorgfalt erstellt. Fuer die Richtigkeit,
+          Vollstaendigkeit und Aktualitaet der Inhalte koennen wir jedoch keine Gewaehr uebernehmen.
+          Als Diensteanbieter sind wir gemaess § 7 Abs. 1 TMG fuer eigene Inhalte auf diesen Seiten
+          nach den allgemeinen Gesetzen verantwortlich.
         </p>
+      </section>
 
-        <h3>Urheberrecht</h3>
-        <p>
-          Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen
-          dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art
-          der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen
-          Zustimmung des jeweiligen Autors bzw. Erstellers.
+      <section className="space-y-2">
+        <h2 className="text-lg font-semibold text-gray-700">Urheberrecht</h2>
+        <p className="text-gray-600 text-sm leading-relaxed">
+          Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem
+          deutschen Urheberrecht. Beitraege Dritter sind als solche gekennzeichnet. Die Vervielfaeltigung,
+          Bearbeitung, Verbreitung und jede Art der Verwertung ausserhalb der Grenzen des Urheberrechts
+          beduerfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
         </p>
-      </div>
-    </>
+      </section>
+    </div>
   )
 }
