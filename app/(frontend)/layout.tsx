@@ -36,7 +36,7 @@ const getMenuPages = unstable_cache(
 
 // Async server component — resolves CMS pages without blocking the layout stream
 async function HeaderWithCmsPages() {
-  const pages = await getMenuPages()
+  const pages = await getMenuPages().catch(() => [])
   const menuPages = (pages as any[]).filter(
     (p) => !['impressum', 'datenschutz', 'cookies'].includes(p.slug)
   )

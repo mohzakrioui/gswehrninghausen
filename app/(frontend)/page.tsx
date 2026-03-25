@@ -34,7 +34,7 @@ const getHomeData = unstable_cache(
 )
 
 export default async function HomePage() {
-  const { articles: articlesResult, events: eventsResult } = await getHomeData()
+  const { articles: articlesResult, events: eventsResult } = await getHomeData().catch(() => ({ articles: [], events: [] }))
 
   return (
     <>
