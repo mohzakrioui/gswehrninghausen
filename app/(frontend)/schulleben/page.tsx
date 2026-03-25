@@ -3,61 +3,83 @@ import PageHero from '../../../components/ui/PageHero'
 
 export const metadata: Metadata = {
   title: 'Schulleben',
-  description: 'JüL, Lernzeiten und Schulsozialarbeit an der Grundschule Wehringhausen.',
+  description: 'Einblicke in das Schulleben der Grundschule Wehringhausen: JueL, Lernzeiten, AGs und mehr.',
 }
+
+const highlights = [
+  {
+    title: 'Jahrgangsuebergreifendes Lernen (JueL)',
+    text: 'Kinder der Klassen 1/2 und 3/4 lernen gemeinsam in altersgemischten Gruppen. Sie helfen sich gegenseitig, lernen voneinander und entwickeln soziale Kompetenz im Alltag.',
+    emoji: '🌱',
+  },
+  {
+    title: 'Lernzeiten',
+    text: 'Feste Lernzeiten im Schulalltag geben Kindern Raum fuer selbststaendiges Arbeiten und individuelles Ueben - begleitet von unseren Lehrerinnen.',
+    emoji: '📚',
+  },
+  {
+    title: 'Schulsozialarbeit',
+    text: 'Unser Schulsozialarbeiter Simon Rybarczyk ist Ansprechpartner fuer Kinder, Eltern und Lehrerinnen bei Fragen rund um Schule, Familie und soziales Miteinander.',
+    emoji: '🤝',
+  },
+  {
+    title: 'Elterncafe',
+    text: 'Regelmaessig laden wir Eltern zum Elterncafe ein. Ein lockeres Treffen zum Austausch, Kennenlernen und gemeinsamen Gespraech.',
+    emoji: '☕',
+  },
+  {
+    title: 'Projekttage & Feste',
+    text: 'Ob Sommerfest, Laternenzug oder Schulprojekttage - bei uns ist immer etwas los. Gemeinsame Erlebnisse staerken das Wir-Gefuehl in unserer Schulgemeinschaft.',
+    emoji: '🎉',
+  },
+  {
+    title: 'Arbeitsgemeinschaften (AGs)',
+    text: 'In verschiedenen AGs koennen Kinder ihre Interessen und Talente entfalten - ob Sport, Kreativitaet oder andere Bereiche. Das Angebot wechselt je nach Schuljahr.',
+    emoji: '🎨',
+  },
+]
 
 export default function SchullebenPage() {
   return (
     <>
-      <PageHero
-        title="Schulleben"
-        subtitle="Unser pädagogischer Alltag – JüL, Lernzeiten und mehr"
-      />
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="space-y-12">
-          <Section title="Jahrgangsübergreifendes Lernen (JüL)">
-            <p>
-              Das jahrgangsübergreifende Lernen ist das Herzstück unserer Schule. Kinder der
-              Jahrgänge 1 bis 3 lernen gemeinsam in einem Klassenverband. Ältere Kinder
-              unterstützen jüngere, und jüngere Kinder lernen von den Älteren – ein natürliches
-              Miteinander, wie es auch außerhalb der Schule besteht.
-            </p>
-            <ul>
-              <li>Individuelle Lernwege und eigenes Lerntempo</li>
-              <li>Soziale Kompetenzentwicklung durch Helfen und Unterstützen</li>
-              <li>Freie Arbeit in Wochenplänen</li>
-              <li>Regelmäßige Lernentwicklungsgespräche (LEG) mit Eltern</li>
-            </ul>
-          </Section>
+      <PageHero title="Schulleben" subtitle="Gemeinsam lernen, spielen und wachsen" />
 
-          <Section title="Lernzeiten">
-            <p>
-              Innerhalb des Unterrichts gibt es regelmäßige Lernzeiten, in denen die Kinder
-              selbstständig an ihren individuellen Aufgaben arbeiten. Lehrkräfte begleiten und
-              fördern dabei jeden Schüler gezielt.
-            </p>
-          </Section>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
 
-          <Section title="Schulsozialarbeit">
-            <p>
-              Unsere Schulsozialarbeiterinnen und -sozialarbeiter sind Ansprechpartner für
-              Kinder, Eltern und Lehrkräfte. Sie bieten Einzel- und Gruppenberatung,
-              Konfliktmediation und unterstützen bei besonderen Lebenssituationen.
-            </p>
-          </Section>
-        </div>
+        <section>
+          <p className="text-gray-700 leading-relaxed text-lg">
+            An der Grundschule Wehringhausen ist Schule mehr als Unterricht. Wir gestalten einen
+            Schulalltag, der Kinder ganzheitlich foerdert, staerkt und begeistert. Hier sind einige
+            Einblicke in unser vielfaeltiges Schulleben.
+          </p>
+        </section>
+
+        <section className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {highlights.map((item) => (
+            <div key={item.title} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+              <div className="text-3xl mb-3">{item.emoji}</div>
+              <h3 className="font-bold text-gray-800 mb-2">{item.title}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">{item.text}</p>
+            </div>
+          ))}
+        </section>
+
+        <section className="rounded-2xl border-2 p-8 text-center" style={{ borderColor: 'var(--color-primary)', background: 'var(--color-primary-light, #f0fdf4)' }}>
+          <p className="text-gray-700 text-lg mb-2">
+            Aktuelle Termine und Ankuendigungen finden Sie immer aktuell auf
+          </p>
+          <a
+            href="https://gswehringhausen.edupage.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold text-lg hover:underline"
+            style={{ color: 'var(--color-primary)' }}
+          >
+            Edupage - unserem Schulportal
+          </a>
+        </section>
+
       </div>
     </>
-  )
-}
-
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section>
-      <h2 className="text-2xl font-bold text-[var(--color-primary)] mb-4 pb-2 border-b border-blue-100">
-        {title}
-      </h2>
-      <div className="prose text-gray-700">{children}</div>
-    </section>
   )
 }
